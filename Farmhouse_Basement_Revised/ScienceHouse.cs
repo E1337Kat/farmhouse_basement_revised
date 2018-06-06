@@ -52,7 +52,8 @@ namespace Farmhouse_Basement_Revised
         {
             if (questionAndAnswer == null || !questionAndAnswer.Equals("carpenter_Upgrade") || !questionAndAnswer.Equals("upgrade_Yes"))
                 return base.answerDialogueAction(questionAndAnswer, questionParams);
-            mod.Monitor.Log("Successfully intercepted upgrade question.", LogLevel.Debug);
+            if (mod != null) 
+                mod.Monitor.Log("Successfully intercepted upgrade question.", LogLevel.Debug);
             switch (questionAndAnswer) {
                 case "carpenter_Upgrade":
                     this.houseUpgradeOffer();
