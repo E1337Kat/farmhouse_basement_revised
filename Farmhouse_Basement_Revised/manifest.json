@@ -1,0 +1,10 @@
+﻿{
+   "Name": "Farmhouse_Basement_Revised",
+   "Author": "Ellie",
+   "Version": "0.1.0",
+   "Description": "Adds a basement to the farmhouse on the kitchen upgrade!",
+   "UniqueID": "Ellie.Farmhouse_Basement_Revised",
+   "EntryDll": "Farmhouse_Basement_Revised.dll",
+   "MinimumApiVersion": "2.0",
+   "UpdateKeys": []
+}

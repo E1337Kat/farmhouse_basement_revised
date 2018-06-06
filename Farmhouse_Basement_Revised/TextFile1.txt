@@ -1,0 +1,8 @@
+﻿TODO:
+
+* Use StardewValley.BuildingUpgrade to create new upgrade for house.
+* Add text for Robin to find basement
+* Add price for upgrade
+* StardewValley.GameLocation#houseUpgradeAccept()
+* StardewValley.GameLocation#houseUpgradeOffer()
+* xnb: Strings.Location.ScienceHouse....

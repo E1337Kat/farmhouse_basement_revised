@@ -1,0 +1,224 @@
+﻿.method private hidebysig 
+	instance void houseUpgradeAccept () cil managed 
+{
+	// Method begins at RVA 0x8d080
+	// Code size 579 (0x243)
+	.maxstack 4
+	.locals init (
+		[0] int32
+	)
+
+	// switch ((int)Game1.player.houseUpgradeLevel)
+	IL_0000: call class StardewValley.Farmer StardewValley.Game1::get_player()
+	IL_0005: ldfld class [Netcode]Netcode.NetInt StardewValley.Farmer::houseUpgradeLevel
+	IL_000a: call !0 class [Netcode]Netcode.NetFieldBase`2<int32, class [Netcode]Netcode.NetInt>::op_Implicit(class [Netcode]Netcode.NetFieldBase`2<!0, !1>)
+	IL_000f: stloc.0
+	// (no C# code)
+	IL_0010: ldloc.0
+	IL_0011: switch (IL_0023, IL_00ee, IL_0243, IL_03e)
+
+	IL_0022: ret
+	//*****UPGRADE 1 BEGIN*****//
+	// if (Game1.player.Money >= 10000 && Game1.player.hasItemInInventory(388, 450, 0))
+	IL_0023: ...
+
+	// Game1.player.daysUntilHouseUpgrade = 3;
+	IL_004b: ...
+	// Game1.player.Money -= 10000;
+	IL_0056: ...
+	// Game1.player.removeItemsFromInventory(388, 450);
+	IL_006c: ...
+	// Game1.getCharacterFromName("Robin", false).setNewDialogue(Game1.content.LoadString("Data\\ExtraDialogue:Robin_HouseUpgrade_Accepted"), false, false);
+	IL_0081: ...
+	// Game1.drawDialogue(Game1.getCharacterFromName("Robin", false));
+	IL_00a2: ...
+	// (no C# code)
+	IL_00b2: ret
+
+	// else if (Game1.player.Money < 10000)
+	IL_00b3: ...
+	// Game1.drawObjectDialogue(Game1.content.LoadString("Strings\\UI:NotEnoughMoney3"));
+	IL_00c4: ...
+	IL_00d8: ret
+
+	// Game1.drawObjectDialogue(Game1.content.LoadString("Strings\\Locations:ScienceHouse_Carpenter_NotEnoughWood1"));
+	IL_00d9: ...
+	IL_00ed: ret
+	//********UPGRADE 1 END*******//
+
+	//********UPGRADE 2 BEGIN******//
+	// if (Game1.player.Money >= 50000 && Game1.player.hasItemInInventory(709, 150, 0))
+	IL_00ee: ...
+	// Game1.player.daysUntilHouseUpgrade = 3;
+	IL_0116: ...
+	// Game1.player.Money -= 50000;
+	IL_0121: ...
+	// Game1.player.removeItemsFromInventory(709, 150);
+	IL_0137: ...
+	// Game1.getCharacterFromName("Robin", false).setNewDialogue(Game1.content.LoadString("Data\\ExtraDialogue:Robin_HouseUpgrade_Accepted"), false, false);
+	IL_014c: ...
+	// Game1.drawDialogue(Game1.getCharacterFromName("Robin", false));
+	IL_016d: ...
+	IL_017d: ret
+
+	// else if (Game1.player.Money < 50000)
+	IL_017e: ...
+	// Game1.drawObjectDialogue(Game1.content.LoadString("Strings\\UI:NotEnoughMoney3"));
+	IL_018f: ...
+	IL_01a3: ret
+
+	// Game1.drawObjectDialogue(Game1.content.LoadString("Strings\\Locations:ScienceHouse_Carpenter_NotEnoughWood2"));
+	IL_01a4: ...
+	IL_01b8: ret
+	//********UPGRADE 2 END*******//
+
+	//********UPGRADE OLD_3 BEGIN******//
+	// if (Game1.player.Money >= 100000)
+	IL_01b9: ...
+	// Game1.player.daysUntilHouseUpgrade = 3;
+	IL_01ca: ...
+	// Game1.player.Money -= 100000;
+	IL_01d5: ...
+	// Game1.getCharacterFromName("Robin", false).setNewDialogue(Game1.content.LoadString("Data\\ExtraDialogue:Robin_HouseUpgrade_Accepted"), false, false);
+	IL_01eb: ...
+	// Game1.drawDialogue(Game1.getCharacterFromName("Robin", false));
+	IL_020c: ...
+	IL_021c: ret
+
+	// else if (Game1.player.Money < 100000)
+	IL_021d: ...
+	// Game1.drawObjectDialogue(Game1.content.LoadString("Strings\\UI:NotEnoughMoney3"));
+	IL_022e: ...
+	IL_0242: ret
+	//********UPGRADE OLD_3 END******//
+
+	//********NEW CODE -- SAME AS PRIOR WITH CHANGES IN AMOUNTS AND STRINGS*********//
+	
+	//********UPGRADE 3 BEGIN******//
+	// Need 300 stone and 75000 gold to build
+	// if (Game1.player.Money >= 75000 && Game1.player.hasItemInInventory(390, 300, 0))
+	IL_0243: call class StardewValley.Farmer StardewValley.Game1::get_player()
+	IL_00f3: callvirt instance int32 StardewValley.Farmer::get_Money()
+	IL_00f8: ldc.i4 75000
+	IL_00fd: blt.s IL_017e
+
+	IL_00ff: call class StardewValley.Farmer StardewValley.Game1::get_player()
+	IL_0104: ldc.i4 390
+	IL_0109: ldc.i4 300
+	IL_010e: ldc.i4.0
+	IL_010f: callvirt instance bool StardewValley.Farmer::hasItemInInventory(int32, int32, int32)
+	// (no C# code)
+	IL_0114: brfalse.s IL_017e
+
+	// Game1.player.daysUntilHouseUpgrade = 3;
+	IL_0116: call class StardewValley.Farmer StardewValley.Game1::get_player()
+	IL_011b: ldc.i4.3
+	IL_011c: stfld int32 StardewValley.Farmer::daysUntilHouseUpgrade
+	// Game1.player.Money -= 75000;
+	IL_0121: call class StardewValley.Farmer StardewValley.Game1::get_player()
+	IL_0126: dup
+	IL_0127: callvirt instance int32 StardewValley.Farmer::get_Money()
+	IL_012c: ldc.i4 75000
+	IL_0131: sub
+	// (no C# code)
+	IL_0132: callvirt instance void StardewValley.Farmer::set_Money(int32)
+	// Game1.player.removeItemsFromInventory(390, 300);
+	IL_0137: call class StardewValley.Farmer StardewValley.Game1::get_player()
+	IL_013c: ldc.i4 390
+	IL_0141: ldc.i4 300
+	IL_0146: callvirt instance bool StardewValley.Farmer::removeItemsFromInventory(int32, int32)
+	IL_014b: pop
+	// Game1.getCharacterFromName("Robin", false).setNewDialogue(Game1.content.LoadString("Data\\ExtraDialogue:Robin_HouseUpgrade_Accepted"), false, false);
+	IL_014c: ldstr "Robin"
+	IL_0151: ldc.i4.0
+	IL_0152: call class StardewValley.NPC StardewValley.Game1::getCharacterFromName(string, bool)
+	IL_0157: ldsfld class StardewValley.LocalizedContentManager StardewValley.Game1::content
+	IL_015c: ldstr "Data\\ExtraDialogue:Robin_HouseUpgrade_Accepted"
+	IL_0161: callvirt instance string StardewValley.LocalizedContentManager::LoadString(string)
+	IL_0166: ldc.i4.0
+	IL_0167: ldc.i4.0
+	IL_0168: callvirt instance void StardewValley.NPC::setNewDialogue(string, bool, bool)
+	// Game1.drawDialogue(Game1.getCharacterFromName("Robin", false));
+	IL_016d: ldstr "Robin"
+	IL_0172: ldc.i4.0
+	IL_0173: call class StardewValley.NPC StardewValley.Game1::getCharacterFromName(string, bool)
+	IL_0178: call void StardewValley.Game1::drawDialogue(class StardewValley.NPC)
+	// (no C# code)
+	IL_017d: ret
+
+	// else if (Game1.player.Money < 50000)
+	IL_017e: call class StardewValley.Farmer StardewValley.Game1::get_player()
+	IL_0183: callvirt instance int32 StardewValley.Farmer::get_Money()
+	IL_0188: ldc.i4 50000
+	IL_018d: bge.s IL_01a4
+
+	// Game1.drawObjectDialogue(Game1.content.LoadString("Strings\\UI:NotEnoughMoney3"));
+	IL_018f: ldsfld class StardewValley.LocalizedContentManager StardewValley.Game1::content
+	IL_0194: ldstr "Strings\\UI:NotEnoughMoney3"
+	IL_0199: callvirt instance string StardewValley.LocalizedContentManager::LoadString(string)
+	IL_019e: call void StardewValley.Game1::drawObjectDialogue(string)
+	// (no C# code)
+	IL_01a3: ret
+
+	// Game1.drawObjectDialogue(Game1.content.LoadString("Strings\\Locations:ScienceHouse_Carpenter_NotEnoughWood2"));
+	IL_01a4: ldsfld class StardewValley.LocalizedContentManager StardewValley.Game1::content
+	IL_01a9: ldstr "Strings\\Locations:ScienceHouse_Carpenter_NotEnoughWood2"
+	IL_01ae: callvirt instance string StardewValley.LocalizedContentManager::LoadString(string)
+	IL_01b3: call void StardewValley.Game1::drawObjectDialogue(string)
+	// (no C# code)
+	IL_030d: ret
+	//**************UPGRADE 3 END************//
+
+	//**************UPGRADE CELLAR BEGIN***************//
+	// if (Game1.player.Money >= 100000)
+	IL_030e: call class StardewValley.Farmer StardewValley.Game1::get_player()
+	IL_01be: callvirt instance int32 StardewValley.Farmer::get_Money()
+	IL_01c3: ldc.i4 100000
+	IL_01c8: blt.s IL_021d
+
+	// Game1.player.daysUntilHouseUpgrade = 3;
+	IL_01ca: call class StardewValley.Farmer StardewValley.Game1::get_player()
+	IL_01cf: ldc.i4.3
+	IL_01d0: stfld int32 StardewValley.Farmer::daysUntilHouseUpgrade
+	// Game1.player.Money -= 100000;
+	IL_01d5: call class StardewValley.Farmer StardewValley.Game1::get_player()
+	IL_01da: dup
+	IL_01db: callvirt instance int32 StardewValley.Farmer::get_Money()
+	IL_01e0: ldc.i4 100000
+	IL_01e5: sub
+	// (no C# code)
+	IL_01e6: callvirt instance void StardewValley.Farmer::set_Money(int32)
+	// Game1.getCharacterFromName("Robin", false).setNewDialogue(Game1.content.LoadString("Data\\ExtraDialogue:Robin_HouseUpgrade_Accepted"), false, false);
+	IL_01eb: ldstr "Robin"
+	IL_01f0: ldc.i4.0
+	IL_01f1: call class StardewValley.NPC StardewValley.Game1::getCharacterFromName(string, bool)
+	IL_01f6: ldsfld class StardewValley.LocalizedContentManager StardewValley.Game1::content
+	IL_01fb: ldstr "Data\\ExtraDialogue:Robin_HouseUpgrade_Accepted"
+	IL_0200: callvirt instance string StardewValley.LocalizedContentManager::LoadString(string)
+	IL_0205: ldc.i4.0
+	IL_0206: ldc.i4.0
+	IL_0207: callvirt instance void StardewValley.NPC::setNewDialogue(string, bool, bool)
+	// Game1.drawDialogue(Game1.getCharacterFromName("Robin", false));
+	IL_020c: ldstr "Robin"
+	IL_0211: ldc.i4.0
+	IL_0212: call class StardewValley.NPC StardewValley.Game1::getCharacterFromName(string, bool)
+	IL_0217: call void StardewValley.Game1::drawDialogue(class StardewValley.NPC)
+	// (no C# code)
+	IL_021c: ret
+
+	// else if (Game1.player.Money < 100000)
+	IL_021d: call class StardewValley.Farmer StardewValley.Game1::get_player()
+	IL_0222: callvirt instance int32 StardewValley.Farmer::get_Money()
+	IL_0227: ldc.i4 100000
+	IL_022c: bge.s IL_0242
+
+	// Game1.drawObjectDialogue(Game1.content.LoadString("Strings\\UI:NotEnoughMoney3"));
+	IL_022e: ldsfld class StardewValley.LocalizedContentManager StardewValley.Game1::content
+	IL_0233: ldstr "Strings\\UI:NotEnoughMoney3"
+	IL_0238: callvirt instance string StardewValley.LocalizedContentManager::LoadString(string)
+	IL_023d: call void StardewValley.Game1::drawObjectDialogue(string)
+
+	// (no C# code)
+	IL_0397: ret
+	//*********END CELLAR**************//
+} // end of method GameLocation::houseUpgradeAccept
