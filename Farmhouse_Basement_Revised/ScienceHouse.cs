@@ -1,24 +1,58 @@
 ﻿using StardewValley;
+using StardewModdingAPI;
 
 namespace Farmhouse_Basement_Revised
 {
     class ScienceHouse : GameLocation
     {
+        /// <summary>
+        /// The main mod object.
+        /// </summary>
+        private ModEntry mod = null;
+
+        /// <summary>
+        /// Default constructor
+        /// </summary>
         public ScienceHouse() { }
 
+        /// <summary>
+        /// Standard constructor
+        /// </summary>
+        /// <param name="mapPath">The path to the map for this location.</param>
+        /// <param name="name">The name of this location.</param>
         public ScienceHouse(string mapPath, string name)
             : base(mapPath, name)
         { }
+
+        /// <summary>
+        /// Constructor that operates like the base constructor, but includes the ModEntry object for logging.
+        /// </summary>
+        /// <param name="mapPath">The path to the map for this location.</param>
+        /// <param name="name">The name of this location.</param>
+        /// <param name="mod">The main mod object.</param>
+        public ScienceHouse(string mapPath, string name, ModEntry mod)
+            : base(mapPath, name)
+        {
+            this.mod = mod;
+            mod.Monitor.Log("Loading custom ScienceHouse.", LogLevel.Debug);
+        }
 
         protected override void initNetFields()
         {
             base.initNetFields();
         }
 
+        /// <summary>
+        /// Intercepts the answerDialogueAction code in GameLocation to implement more house upgrade choices.
+        /// </summary>
+        /// <param name="questionAndAnswer">The question and answer to ask.</param>
+        /// <param name="questionParams">The parameters for the question if needed.</param>
+        /// <returns>parent if not needed, true otherwise</returns>
         public override bool answerDialogueAction(string questionAndAnswer, string[] questionParams)
         {
             if (questionAndAnswer == null || !questionAndAnswer.Equals("carpenter_Upgrade") || !questionAndAnswer.Equals("upgrade_Yes"))
                 return base.answerDialogueAction(questionAndAnswer, questionParams);
+            mod.Monitor.Log("Successfully intercepted upgrade question.", LogLevel.Debug);
             switch (questionAndAnswer) {
                 case "carpenter_Upgrade":
                     this.houseUpgradeOffer();
@@ -30,6 +64,9 @@ namespace Farmhouse_Basement_Revised
             return true;
         }
 
+        /// <summary>
+        /// Custom code to determine if an upgrade is needed.
+        /// </summary>
         private void houseUpgradeAccept()
         {
             switch ((int)Game1.player.houseUpgradeLevel) {
@@ -85,6 +122,9 @@ namespace Farmhouse_Basement_Revised
             }
         }
 
+        /// <summary>
+        /// Custom code the determine what questions should be asked.
+        /// </summary>
         private void houseUpgradeOffer()
         {
             switch ((int)Game1.player.houseUpgradeLevel) {

@@ -27,7 +27,6 @@ namespace Farmhouse_Basement_Revised
             InputEvents.ButtonPressed += this.InputEvents_ButtonPressed;
             
             helper.Content.AssetEditors.Add(new FarmhouseBasementUpgradeDialogueEditor());
-            helper.Content.AssetLoaders.Add(new FarmhouseUpgrade4Loader());
 
             
         }
@@ -43,7 +42,7 @@ namespace Farmhouse_Basement_Revised
         {
             if (Context.IsWorldReady) // save is loaded
             {
-                this.Monitor.Log($"{Game1.player.Name} pressed {e.Button}.");
+                this.Monitor.Log($"{Game1.player.Name} pressed {e.Button}.", LogLevel.Debug);
             }
         }
 
@@ -63,14 +62,17 @@ namespace Farmhouse_Basement_Revised
             Game1.locations.Add(farmhouse3);
             Game1.locations.Add(farmhouse3marriage);
 
+            this.Monitor.Log("New Farmhouse Upgrade loaded", LogLevel.Info);
+
 
             // Attempt to add custom ScienceHouse code instead of generice Game Location for changes.
-            Game1.locations.Insert(15, (GameLocation)new ScienceHouse("Maps\\ScienceHouse", "ScienceHouse"));
-            Game1.locations[15].addCharacter(new NPC(new AnimatedSprite("Characters\\Maru", 0, 16, 32), new Vector2(128f, 256f), "ScienceHouse", 3, "Maru", true, (Dictionary<int, int[]>)null, Game1.content.Load<Texture2D>("Portraits\\Maru")));
-            Game1.locations[15].addCharacter(new NPC(new AnimatedSprite("Characters\\Robin", 0, 16, 32), new Vector2(1344f, 256f), "ScienceHouse", 1, "Robin", false, (Dictionary<int, int[]>)null, Game1.content.Load<Texture2D>("Portraits\\Robin")));
-            Game1.locations[15].addCharacter(new NPC(new AnimatedSprite("Characters\\Demetrius", 0, 16, 32), new Vector2(1216f, 256f), "ScienceHouse", 1, "Demetrius", false, (Dictionary<int, int[]>)null, Game1.content.Load<Texture2D>("Portraits\\Demetrius")));
+            int index = Game1.locations.IndexOf(Game1.getLocationFromName("ScienceHouse"));
+            Game1.locations.Insert(index, (GameLocation)new ScienceHouse("Maps\\ScienceHouse", "ScienceHouse"));
+            Game1.locations[index].addCharacter(new NPC(new AnimatedSprite("Characters\\Maru", 0, 16, 32), new Vector2(128f, 256f), "ScienceHouse", 3, "Maru", true, (Dictionary<int, int[]>)null, Game1.content.Load<Texture2D>("Portraits\\Maru")));
+            Game1.locations[index].addCharacter(new NPC(new AnimatedSprite("Characters\\Robin", 0, 16, 32), new Vector2(1344f, 256f), "ScienceHouse", 1, "Robin", false, (Dictionary<int, int[]>)null, Game1.content.Load<Texture2D>("Portraits\\Robin")));
+            Game1.locations[index].addCharacter(new NPC(new AnimatedSprite("Characters\\Demetrius", 0, 16, 32), new Vector2(1216f, 256f), "ScienceHouse", 1, "Demetrius", false, (Dictionary<int, int[]>)null, Game1.content.Load<Texture2D>("Portraits\\Demetrius")));
 
-            this.Monitor.Log("New ScienceHouse location loaded.");
+            this.Monitor.Log("New ScienceHouse location loaded.", LogLevel.Info);
         }
     }
 }
