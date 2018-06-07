@@ -1,5 +1,6 @@
 ﻿using StardewValley;
 using StardewModdingAPI;
+using xTile.Dimensions;
 
 namespace Farmhouse_Basement_Revised
 {
@@ -65,10 +66,40 @@ namespace Farmhouse_Basement_Revised
             return true;
         }
 
-        /// <summary>
-        /// Custom code to determine if an upgrade is needed.
-        /// </summary>
-        private void houseUpgradeAccept()
+        public override bool checkAction(Location tileLocation, Rectangle viewport, Farmer who)
+        {
+            if (Game1.player.houseUpgradeLevel > 2 ) {
+                if (mod != null)
+                    mod.Monitor.Log("Successfully intercepted checkAction.", LogLevel.Debug);
+                return Game2.getHook().OnGameLocation_CheckAction(this, tileLocation, viewport, who, delegate {
+                    if (who.IsLocalPlayer && who.currentUpgrade != null && name.Equals("Farm") && tileLocation.Equals(new Location((int)(who.currentUpgrade.positionOfCarpenter.X + 32f) / 64, (int)(who.currentUpgrade.positionOfCarpenter.Y + 32f) / 64))) {
+                        if (who.currentUpgrade.daysLeftTillUpgradeDone == 1) {
+                            Game1.drawDialogue(Game1.getCharacterFromName("Robin", false), Game1.content.LoadString("Data\\ExtraDialogue:Farm_RobinWorking_ReadyTomorrow"));
+                        } else {
+                            Game1.drawDialogue(Game1.getCharacterFromName("Robin", false), Game1.content.LoadString("Data\\ExtraDialogue:Farm_RobinWorking" + (Game1.random.Next(2) + 1)));
+                        }
+                    }
+                    Microsoft.Xna.Framework.Vector2 vector = new Microsoft.Xna.Framework.Vector2((float)tileLocation.X, (float)tileLocation.Y);
+                    xTile.ObjectModel.PropertyValue propertyValue = null;
+                    xTile.Tiles.Tile tile = map.GetLayer("Buildings").PickTile(new Location(tileLocation.X * 64, tileLocation.Y * 64), viewport.Size);
+                    tile?.Properties.TryGetValue("Action", out propertyValue);
+                    if (propertyValue != null && (currentEvent != null || isCharacterAtTile(vector + new Microsoft.Xna.Framework.Vector2(0f, 1f)) == null)) {
+                        return this.performAction(propertyValue, who, tileLocation);
+                    }
+                    return false;
+                });
+            }
+            return base.checkAction(tileLocation, viewport, who);
+        }
+
+        public bool performAction(string action, Farmer who, Location tileLocation) {
+            return false;
+        }
+
+            /// <summary>
+            /// Custom code to determine if an upgrade is needed.
+            /// </summary>
+            private void houseUpgradeAccept()
         {
             switch ((int)Game1.player.houseUpgradeLevel) {
                 case 0:
